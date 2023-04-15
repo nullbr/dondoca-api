@@ -14,21 +14,21 @@ AllCops:
 Metrics/AbcSize:
   Max: 31
   Exclude:
-    - 'test/**/*_test.rb'
+    - "test/**/*_test.rb"
 
 Metrics/MethodLength:
   Max: 30
   Exclude:
-    - 'test/**/*_test.rb'
+    - "test/**/*_test.rb"
 
 Metrics/BlockLength:
   Max: 100
   Exclude:
-    - 'test/**/*_test.rb'
+    - "test/**/*_test.rb"
 
 Metrics/ClassLength:
   Exclude:
-    - 'test/**/*_test.rb'
+    - "test/**/*_test.rb"
 
 Style/Documentation:
   Enabled: false
@@ -55,7 +55,7 @@ Style/ExponentialNotation:
   Enabled: true
 
 Style/FrozenStringLiteralComment:
-  Enabled: true
+  Enabled: false
 
 Style/StringLiterals:
   Enabled: true
@@ -67,4 +67,4 @@ Style/StringLiteralsInInterpolation:
 
 Naming/MemoizedInstanceVariableName:
   Exclude:
-    - 'lib/generators/**/*.rb'
+    - "lib/generators/**/*.rb"

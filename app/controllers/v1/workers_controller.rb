@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module V1
   class WorkersController < AuthenticatedController
     before_action :set_worker, only: %i[show edit update destroy]
