@@ -55,7 +55,7 @@ Style/ExponentialNotation:
   Enabled: true
 
 Style/FrozenStringLiteralComment:
-  Enabled: false
+  Enabled: true
 
 Style/StringLiterals:
   Enabled: true
