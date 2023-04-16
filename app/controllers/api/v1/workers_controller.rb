@@ -74,7 +74,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def worker_params
-        params.require(:worker).permit(:title, :body)
+        params.require(:worker).permit(:first_name, :last_name, :phone_number, :job)
       end
     end
   end

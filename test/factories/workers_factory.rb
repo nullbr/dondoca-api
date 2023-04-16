@@ -3,9 +3,12 @@
 FactoryBot.define do
   # Create a worker
   factory :worker do
-    first_name { Faker::Worker.first_name }
-    last_name { Faker::Worker.last_name }
-    phone_number { Faker::Worker.phone_number }
-    job { Faker::Worker.job }
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+
+    Faker::Config.locale = 'pt-BR'
+    phone_number { Faker::PhoneNumber.phone_number }
+
+    job { Faker::Job.title }
   end
 end
