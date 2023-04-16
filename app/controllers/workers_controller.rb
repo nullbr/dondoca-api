@@ -4,7 +4,7 @@ class WorkersController < ApplicationController
   include ApplicationHelper
   before_action :set_worker, only: %i[show edit update destroy]
   before_action :authenticate_user!
-  before_action :is_admin?
+  # before_action :is_admin?
   # GET /workers or /workers.json
   def index
     @workers = Worker.all
@@ -68,6 +68,6 @@ class WorkersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def worker_params
-    params.require(:worker).permit(:title, :body)
+    params.require(:worker).permit(:first_name, :last_name, :phone_number, :job)
   end
 end
