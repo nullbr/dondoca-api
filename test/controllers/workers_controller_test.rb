@@ -26,7 +26,7 @@ class WorkersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create worker' do
     assert_difference('Worker.count') do
-      post workers_url, params: { worker: { body: @worker.body, title: @worker.title } }
+      post workers_url, params: { worker: { first_name: @worker.first_name, last_name: @worker.last_name, phone_number: @worker.phone_number, job: @worker.job } }
     end
 
     assert_redirected_to worker_url(Worker.last)
@@ -43,7 +43,7 @@ class WorkersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update worker' do
-    patch worker_url(@worker), params: { worker: { body: @worker.body, title: @worker.title } }
+    patch worker_url(@worker), params: { worker: { first_name: @worker.first_name, last_name: @worker.last_name, phone_number: @worker.phone_number, job: @worker.job } }
     assert_redirected_to worker_url(@worker)
   end
 
