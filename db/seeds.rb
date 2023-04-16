@@ -8,6 +8,4 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-Doorkeeper::Application.create(name: 'Dondoca API', scopes: 'read write', redirect_uri: 'http://localhost:3000/oauth/callback')
-
-Worker.create(first_name: 'Bruno', last_name: 'Leite', job: 'dev', phone_number: '123456') if Employee.count < 1
+load(Rails.root.join('db', 'seeds', "#{Rails.env.downcase}.rb"))

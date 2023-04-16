@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+<h1>Books</h1>
+<h2>
+  <%= "#{current_user.email}"%>
+</h2>
+<h3><%= "Role: #{current_user.role}" %></h3>
+<div id="workers">
+  <% @workers.each do |worker| %>
+    <%= render worker %>
+    <p>
+      <%= link_to "Show this worker", worker %>
+    </p>
+  <% end %>
+</div>
+<%= link_to "New worker", new_worker_path %>

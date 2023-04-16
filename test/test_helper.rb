@@ -3,35 +3,20 @@
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
-require 'shoulda/matchers'
-require 'minitest/unit'
-require 'mocha/minitest'
-require 'minitest/focus'
-require 'supports/contract_validator'
-require 'supports/body_parser'
-require 'supports/contract_parser'
-require 'supports/doorkeeper_authenticator'
-require 'supports/sidekiq_minitest_support'
-require 'sidekiq/testing'
+require 'helpers/doorkeeper_params'
 
-class ActiveSupport::TestCase
-  # Run tests in parallel with specified workers
-  # parallelize(workers: :number_of_processors)
+module ActiveSupport
+  class TestCase
+    include FactoryBot::Syntax::Methods
+    include Helpers::DoorkeeperParams
+    # Run tests in parallel with specified workers
+    parallelize(workers: :number_of_processors)
 
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  # fixtures :all
+    # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
+    fixtures :all
 
-  include FactoryBot::Syntax::Methods
-  include Supports::BodyParser
-  include Supports::ContractParser
-  include Supports::ContractValidator
-  include Supports::DoorkeeperAuthenticator
-  include Supports::SidekiqMinitestSupport
-end
+    include Devise::Test::IntegrationHelpers
 
-Shoulda::Matchers.configure do |config|
-  config.integrate do |with|
-    with.test_framework :minitest
-    with.library :rails
+    # Add more helper methods to be used by all tests here...
   end
 end

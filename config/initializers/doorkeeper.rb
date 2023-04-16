@@ -7,15 +7,17 @@ Doorkeeper.configure do
 
   # This block will be called to check whether the resource owner is authenticated or not.
   # resource_owner_authenticator do
-  #   raise "Please configure doorkeeper resource_owner_authenticator block located in #{__FILE__}"
+  #   # raise "Please configure doorkeeper resource_owner_authenticator block located in #{__FILE__}"
   #   # Put your resource owner authentication logic here.
   #   # Example implementation:
   #   #   User.find_by(id: session[:user_id]) || redirect_to(new_user_session_url)
   # end
 
-  resource_owner_from_credentials do |_routes|
+  resource_owner_from_credentials do
     User.authenticate(params[:email], params[:password])
   end
+  # enable password grant
+  grant_flows %w[password]
 
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb
   # file then you need to declare this block in order to restrict access to the web interface for
@@ -76,14 +78,14 @@ Doorkeeper.configure do
   # [NOTE] If you apply this option on already existing project don't forget to manually
   # update `resource_owner_type` column in the database and fix migration template as it will
   # set NOT NULL constraint for Access Grants table.
-
-  use_polymorphic_resource_owner
+  #
+  # use_polymorphic_resource_owner
 
   # If you are planning to use Doorkeeper in Rails 5 API-only application, then you might
   # want to use API mode that will skip all the views management and change the way how
   # Doorkeeper responds to a requests.
-
-  api_only
+  #
+  # api_only
 
   # Enforce token request content type to application/x-www-form-urlencoded.
   # It is not enabled by default to not break prior versions of the gem.
@@ -218,7 +220,7 @@ Doorkeeper.configure do
   # `client` - the OAuth client application (see Doorkeeper::OAuth::Client)
   # `grant_type` - the grant type of the request (see Doorkeeper::OAuth)
   # `scopes` - the requested scopes (see Doorkeeper::OAuth::Scopes)
-
+  #
   use_refresh_token
 
   # Provide support for an owner to be assigned to each registered application (disabled by default)
@@ -294,9 +296,9 @@ Doorkeeper.configure do
   # column for `oauth_applications` database table.
   #
   # You can completely disable this feature with:
-
+  #
   allow_blank_redirect_uri true
-
+  #
   # Or you can define your custom check:
   #
   # allow_blank_redirect_uri do |grant_flows, client|
@@ -350,7 +352,7 @@ Doorkeeper.configure do
   #   https://datatracker.ietf.org/doc/html/rfc6819#section-4.4.2
   #   https://datatracker.ietf.org/doc/html/rfc6819#section-4.4.3
   #
-  grant_flows %w[password]
+  # grant_flows %w[authorization_code client_credentials]
 
   # Allows to customize OAuth grant flows that +each+ application support.
   # You can configure a custom block (or use a class respond to `#call`) that must
@@ -416,17 +418,24 @@ Doorkeeper.configure do
   #
   #   Rails.logger.info(context.pre_auth.inspect)
   # end
-
-  after_successful_authorization do |controller, context|
-    resource_owner = context.auth.token.resource_owner
-
-    resource_owner.update_tracked_fields!(controller.request) if resource_owner.respond_to?(:update_tracked_fields!)
-  end
+  #
+  # after_successful_authorization do |controller, context|
+  #   controller.session[:logout_urls] <<
+  #     Doorkeeper::Application
+  #       .find_by(controller.request.params.slice(:redirect_uri))
+  #       .logout_uri
+  #
+  #   Rails.logger.info(context.auth.inspect)
+  #   Rails.logger.info(context.issued_token)
+  # end
 
   # Under some circumstances you might want to have applications auto-approved,
   # so that the user skips the authorization step.
   # For example if dealing with a trusted application.
-
+  #
+  # skip_authorization do |resource_owner, client|
+  #   client.superapp? or resource_owner.admin?
+  # end
   skip_authorization do
     true
   end
@@ -489,6 +498,3 @@ Doorkeeper.configure do
   #
   # realm "Doorkeeper"
 end
-
-Doorkeeper::OAuth::TokenResponse.prepend Supports::Doorkeeper::CustomTokenResponse
-Doorkeeper::OAuth::ErrorResponse.prepend Supports::Doorkeeper::CustomErrorResponse

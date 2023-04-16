@@ -1,9 +1,0 @@
-Description:
-    Creates a new contract
-
-Example:
-    bin/rails generate contract Customer::Create email fullname
-
-    This will create:
-        app/contracts/customers/create_contract.rb
-        app/test/contracts/customers/create_contract_test.rb
