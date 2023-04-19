@@ -4,7 +4,6 @@ module Api
   module V1
     class WorkersController < ApiController
       before_action :set_worker, only: %i[show edit update destroy]
-      skip_before_action :doorkeeper_authorize!
 
       # GET /workers or /workers.json
       def index
