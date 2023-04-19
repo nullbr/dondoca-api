@@ -1,6 +1,3 @@
 # frozen_string_literal: true
 
-if Doorkeeper::Application.count.zero?
-  Doorkeeper::Application.create!(name: 'React Client', redirect_uri: '', scopes: '')
-
-end
+Doorkeeper::Application.create!(name: 'Dondoca Web', redirect_uri: '', scopes: '') if Doorkeeper::Application.count.zero?
