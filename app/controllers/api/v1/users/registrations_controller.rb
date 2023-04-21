@@ -22,7 +22,6 @@ module Api
         end
 
         def edit
-          p params
           user = current_user
 
           allowed_params = user_params.except(:client_id)
@@ -35,7 +34,7 @@ module Api
           if user.update_with_password(allowed_params)
             render json: render_user(user, @client_app), state: :ok
           else
-            render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+            render json: { errors: [t('activerecord.errors.models.user.attributes.current_password.invalid')] }, status: :unprocessable_entity
           end
         end
 
@@ -45,7 +44,7 @@ module Api
           @client_app = Doorkeeper::Application.find_by(uid: params[:client_id])
           return if @client_app
 
-          render json: { error: 'Client Not Found. Check Provided Client Id.' },
+          render json: { errors: [t('doorkeeper.errors.messages.invalid_client')] },
                  status: :unauthorized
         end
 
