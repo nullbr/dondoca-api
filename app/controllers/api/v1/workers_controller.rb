@@ -4,7 +4,6 @@ module Api
   module V1
     class WorkersController < ApiController
       before_action :set_worker, only: %i[show edit update destroy]
-      skip_before_action :doorkeeper_authorize!
 
       # GET /workers or /workers.json
       def index
@@ -69,7 +68,7 @@ module Api
 
       # Use callbacks to share common setup or constraints between actions.
       def set_worker
-        @worker = Worker.find_by_id(params[:id])
+        @worker = Worker.find_by(id: params[:id])
         render json: { error: 'Worker not found' }, status: :not_found if @worker.nil?
       end
 

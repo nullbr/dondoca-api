@@ -9,7 +9,7 @@ describe 'Worker API' do
     @token = "Bearer #{create(:doorkeeper_access_token).token}"
     @worker = create(:worker).attributes
     puts @worker
-    puts ""
+    puts ''
   end
   # GET /workers
   # Get all workers
@@ -80,7 +80,7 @@ describe 'Worker API' do
       }
       response '302', 'redirected' do
         let(:Authorization) { @token }
-        let(:worker) { { first_name: 'Hobbit', last_name: 'worker', phone_number: "(11)99999999", job: "job" } }
+        let(:worker) { { first_name: 'Hobbit', last_name: 'worker', phone_number: '(11)99999999', job: 'job' } }
         run_test!
       end
       response '401', 'unauthorized' do
