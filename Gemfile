@@ -66,6 +66,7 @@ group :development, :test do
   gem 'ruby_audit'
   # Linting
   gem 'rubocop'
+  gem 'rubocop-minitest'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'

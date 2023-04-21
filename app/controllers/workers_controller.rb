@@ -4,7 +4,7 @@ class WorkersController < ApplicationController
   include ApplicationHelper
   before_action :set_worker, only: %i[show edit update destroy]
   before_action :authenticate_user!
-  # before_action :is_admin?
+  # before_action :check_if_admin
   # GET /workers or /workers.json
   def index
     @workers = Worker.all

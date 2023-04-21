@@ -18,14 +18,14 @@ module Doorkeeper
       # The authorization server responds with HTTP status code 200 if the client
       # submitted an invalid token or the token has been revoked successfully.
       if token.blank?
-        render json: {}, status: 200
+        render json: {}, status: :ok
       # The authorization server validates [...] and whether the token
       # was issued to the client making the revocation request. If this
       # validation fails, the request is refused and the client is informed
       # of the error by the authorization server as described below.
       elsif authorized?
         revoke_token
-        render json: {}, status: 200
+        render json: {}, status: :ok
       else
         render json: revocation_error_response, status: :forbidden
       end
@@ -35,7 +35,7 @@ module Doorkeeper
       introspection = OAuth::TokenIntrospection.new(server, token)
 
       if introspection.authorized?
-        render json: introspection.to_json, status: 200
+        render json: introspection.to_json, status: :ok
       else
         error = introspection.error_response
         headers.merge!(error.headers)
@@ -132,7 +132,7 @@ module Doorkeeper
       @authorize_response ||= begin
         before_successful_authorization
         auth = strategy.authorize
-        context = build_context(auth: auth)
+        context = build_context(auth:)
         after_successful_authorization(context) unless auth.is_a?(Doorkeeper::OAuth::ErrorResponse)
         auth
       end
@@ -153,7 +153,7 @@ module Doorkeeper
     def revocation_error_response
       error_description = I18n.t(:unauthorized, scope: %i[doorkeeper errors messages revoke])
 
-      { error: :unauthorized_client, error_description: error_description }
+      { error: :unauthorized_client, error_description: }
     end
   end
 end

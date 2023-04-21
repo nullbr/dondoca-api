@@ -4,7 +4,7 @@ module Helpers
   module DoorkeeperParams
     def oauth_token_params(user, application, grant_type = Doorkeeper.config.grant_flows.first)
       {
-        grant_type: grant_type,
+        grant_type:,
         email: user.email,
         password: user.password,
         client_id: application.uid,
@@ -14,7 +14,7 @@ module Helpers
 
     def oauth_revoke_params(token, grant_type = 'token')
       {
-        grant_type: grant_type,
+        grant_type:,
         token: token.token,
         client_id: token.application.uid,
         client_secret: token.application.secret
