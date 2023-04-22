@@ -21,5 +21,9 @@ module DoorkeeperApi
     config.time_zone = 'Brasilia'
     config.i18n.default_locale = 'pt-BR'
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.generators do |g|
+      g.api_only = true
+    end
   end
 end

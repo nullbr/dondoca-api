@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_22_191803) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_22_210845) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "clients", force: :cascade do |t|
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.bigint "phone_number", null: false
+    t.datetime "birthday"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "oauth_access_tokens", force: :cascade do |t|
     t.bigint "resource_owner_id"
@@ -42,6 +51,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_22_191803) do
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
+  create_table "schedules", force: :cascade do |t|
+    t.datetime "start_at", null: false
+    t.datetime "end_at", null: false
+    t.bigint "client_id", null: false
+    t.bigint "worker_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_schedules_on_client_id"
+    t.index ["worker_id"], name: "index_schedules_on_worker_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -64,7 +84,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_22_191803) do
     t.string "instagram"
     t.string "image_url", default: "https://firebasestorage.googleapis.com/v0/b/dondoca-a6bd8.appspot.com/o/profile_images%2Fmissing.png?alt=media&token=cdb32fbb-6c4d-4814-92cf-6aa36b136ee6"
     t.bigint "phone_number", default: 11111111111, null: false
+    t.index ["phone_number"], name: "index_workers_on_phone_number", unique: true
   end
 
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
+  add_foreign_key "schedules", "clients"
+  add_foreign_key "schedules", "workers"
 end
