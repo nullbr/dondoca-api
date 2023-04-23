@@ -7,8 +7,13 @@ module Api
 
       # GET /schedules or /schedules.json
       def index
-        @schedules = Schedule.all
-        render json: @schedules
+        schedules = Schedule.all.includes(:client) # used includes method to prevent N-Query problem
+
+        render json: {
+          data: ActiveModelSerializers::SerializableResource.new(schedules, each_serializer: ScheduleSerializer),
+          status: 200,
+          type: 'Success'
+        }
       end
 
       # GET /schedules/1 or /schedules/1.json
