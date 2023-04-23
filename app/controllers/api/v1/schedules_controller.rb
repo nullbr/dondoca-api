@@ -7,7 +7,10 @@ module Api
 
       # GET /schedules or /schedules.json
       def index
-        schedules = Schedule.all.includes(:client) # used includes method to prevent N-Query problem
+        date = DateTime.parse(schedule_params[:date])
+        schedules = Schedule.all.includes(:client).by_date(date)
+
+        schedules = schedules.by_worker(schedule_params[:worker_id]) if schedule_params[:worker_id].to_i.positive?
 
         render json: {
           data: ActiveModelSerializers::SerializableResource.new(schedules, each_serializer: ScheduleSerializer),
@@ -69,7 +72,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def schedule_params
-        params.require(:schedule).permit(:first_name, :last_name, :phone_number, :job)
+        params.permit(:worker_id, :date)
       end
     end
   end
