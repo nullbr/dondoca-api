@@ -4,11 +4,17 @@ module Api
   module V1
     class WorkersController < ApiController
       before_action :set_worker, only: %i[show edit update destroy]
+      skip_before_action :doorkeeper_authorize!, only: %i[index]
 
       # GET /workers or /workers.json
       def index
         @workers = Worker.all
-        render json: @workers
+
+        render json: {
+          data: ActiveModelSerializers::SerializableResource.new(@workers, each_serializer: WorkerSerializer),
+          status: 200,
+          type: 'Success'
+        }
       end
 
       # GET /workers/1 or /workers/1.json

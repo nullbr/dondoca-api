@@ -10,6 +10,7 @@ module Api
         start_date = check_date(schedule_params[:start_date])
         end_date = check_date(schedule_params[:end_date])
         schedules = Schedule.by_date_range(start_date, end_date).includes(:client)
+        # schedules = Schedule.all
 
         schedules = schedules.by_worker(schedule_params[:worker_id]) if schedule_params[:worker_id].to_i.positive?
 
