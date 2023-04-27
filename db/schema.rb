@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_22_214210) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_27_171132) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -84,8 +84,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_22_214210) do
     t.datetime "updated_at", null: false
     t.string "instagram"
     t.string "image_url", default: "https://firebasestorage.googleapis.com/v0/b/dondoca-a6bd8.appspot.com/o/profile_images%2Fmissing.png?alt=media&token=cdb32fbb-6c4d-4814-92cf-6aa36b136ee6"
-    t.bigint "phone_number", default: 11111111111, null: false
-    t.index ["phone_number"], name: "index_workers_on_phone_number", unique: true
+    t.text "description", default: "Dondoca"
+    t.bigint "phone_number"
   end
 
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
