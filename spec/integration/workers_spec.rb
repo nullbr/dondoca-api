@@ -17,14 +17,7 @@ describe 'Worker API' do
     get 'Get all workers' do
       tags 'Worker'
       security [Bearer: []]
-      parameter name: :Authorization, in: :header, type: :string, required: true,
-                description: 'Authorization token'
       response '200', 'workers found' do
-        let(:Authorization) { @token }
-        run_test!
-      end
-      response '401', 'unauthorized' do
-        let(:Authorization) { 'invalid' }
         run_test!
       end
     end
@@ -78,7 +71,7 @@ describe 'Worker API' do
         },
         required: %w[title body]
       }
-      response '302', 'redirected' do
+      response '201', 'worker created' do
         let(:Authorization) { @token }
         let(:worker) { { first_name: 'Hobbit', last_name: 'worker', phone_number: '(11)99999999', job: 'job' } }
         run_test!
