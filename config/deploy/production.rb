@@ -55,3 +55,5 @@
 #     auth_methods: %w(publickey password)
 #     # password: "please use keys"
 #   }
+
+server 'dondoca-server', user: 'nullbr', roles: %w[app db web]

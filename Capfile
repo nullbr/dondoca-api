@@ -45,3 +45,9 @@ Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
 
 set :rbenv_type, :user
 set :rbenv_ruby, '2.6.3'
+
+set :application, 'dondoca-api'
+set :repo_url, 'https://git@github.com:nullbr/dondoca-api.git'
+set :branch, 'capistrano-deploy'
+set :deploy_to, "/home/nullbr/#{fetch :application}"
+append :linked_files, 'config/master.key'
