@@ -31,7 +31,7 @@ module Api
         @client = Client.new(client_params)
 
         if @client.save
-          render :show, status: :created, location: @client
+          render json: @client, status: :created
         else
           render json: @client.errors, status: :unprocessable_entity
         end
@@ -40,7 +40,7 @@ module Api
       # PATCH/PUT /clients/1 or /clients/1.json
       def update
         if @client.update(client_params)
-          render :show, status: :ok, location: @client
+          render json: @client, status: :ok
         else
 
           render json: @client.errors, status: :unprocessable_entity

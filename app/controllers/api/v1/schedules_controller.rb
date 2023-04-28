@@ -41,7 +41,7 @@ module Api
         @schedule = Schedule.new(schedule_params)
 
         if @schedule.save
-          render :show, status: :created, location: @schedule
+          render json: @schedule, status: :created
         else
           render json: @schedule.errors, status: :unprocessable_entity
         end
@@ -50,7 +50,7 @@ module Api
       # PATCH/PUT /schedules/1 or /schedules/1.json
       def update
         if @schedule.update(schedule_params)
-          render :show, status: :ok, location: @schedule
+          render json: @schedule, status: :ok
         else
 
           render json: @schedule.errors, status: :unprocessable_entity

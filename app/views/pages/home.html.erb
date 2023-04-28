@@ -10,12 +10,15 @@
   <%= link_to "Sign up", new_user_registration_path %>
 <% end %>
 <p>For DoorkeeperAPI documentation, check <%= link_to "here", swagger_root_path %></p>
-<p>For the Workerstore API documentation, check <%= link_to "here", rswag_ui_path %></p>
-<p>You can test the API with following credentials.</p>
-<div class="container">
-  <%= @application.as_json %>
-  <ul>
-    <li><%= link_to "Web Workers", workers_path %></li>
-    <li><%= link_to "API V1 Workers", api_v1_workers_path %></li>
-  </ul>
-</div>
+<p>For the API documentation, check <%= link_to "here", rswag_ui_path %></p>
+
+<% if Rails.env == "development" %>
+  <p>You can test the API with following credentials.</p>
+  <div class="container">
+    <%= @application.as_json %>
+    <ul>
+      <li><%= link_to "Web Workers", workers_path %></li>
+      <li><%= link_to "API V1 Workers", api_v1_workers_path %></li>
+    </ul>
+  </div>
+<% end %>

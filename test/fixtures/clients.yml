@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: name
+  last_name: last
+  phone_number: 999999999
+  birthday: Fri, 28 Apr 2003 14:43:26.074295000 -03 -03:00
+
+two:
+  first_name: name
+  last_name: last
+  phone_number: 999999999
+  birthday: Fri, 28 Apr 2003 14:43:26.074295000 -03 -03:00

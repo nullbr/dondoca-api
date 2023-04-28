@@ -4,7 +4,7 @@ module Api
   module V1
     class WorkersController < ApiController
       before_action :set_worker, only: %i[show edit update destroy]
-      skip_before_action :doorkeeper_authorize!, only: %i[index]
+      skip_before_action :doorkeeper_authorize!, only: :index
 
       # GET /workers or /workers.json
       def index
@@ -37,7 +37,7 @@ module Api
         @worker = Worker.new(worker_params)
 
         if @worker.save
-          render :show, status: :created, location: @worker
+          render json: @schedule, status: :created
         else
           render json: @worker.errors, status: :unprocessable_entity
         end
@@ -46,9 +46,8 @@ module Api
       # PATCH/PUT /workers/1 or /workers/1.json
       def update
         if @worker.update(worker_params)
-          render :show, status: :ok, location: @worker
+          render json: @worker, status: :ok
         else
-
           render json: @worker.errors, status: :unprocessable_entity
         end
       end
