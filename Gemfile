@@ -104,3 +104,9 @@ gem 'rack-cors', '~> 1.1'
 gem 'rswag', '~> 2.5'
 
 gem 'swagger-blocks', '~> 3.0'
+
+# production deployment with capistrano
+gem 'capistrano', '3.17.2'
+gem 'capistrano-passenger', '0.2.1'
+gem 'capistrano-rails', '1.6.2'
+gem 'capistrano-rbenv', '2.2.0'
