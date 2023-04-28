@@ -7,6 +7,8 @@ namespace :api do
       patch '/', to: 'registrations#edit', as: :edit_user
     end
     resources :workers
+    resources :clients
+    resources :schedules
 
     get '/users/me', to: 'users#me'
   end

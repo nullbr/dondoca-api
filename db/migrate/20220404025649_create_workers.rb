@@ -5,7 +5,7 @@ class CreateWorkers < ActiveRecord::Migration[7.0]
     create_table :workers do |t|
       t.string :first_name
       t.string :last_name
-      t.string :phone_number
+      t.bigint :phone_number
       t.string :job
 
       t.timestamps

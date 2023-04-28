@@ -8,38 +8,38 @@ paths:
     get:
       summary: Get all workers
       tags:
-        - Books
+      - Worker
       security:
-        - Bearer: []
+      - Bearer: []
       parameters:
-        - name: Authorization
-          in: header
-          required: true
-          description: Authorization token
-          schema:
-            type: string
+      - name: Authorization
+        in: header
+        required: true
+        description: Authorization token
+        schema:
+          type: string
       responses:
-        "200":
+        '200':
           description: workers found
-        "401":
+        '401':
           description: unauthorized
     post:
       summary: Create a worker
       tags:
-        - Books
+      - Worker
       security:
-        - Bearer: []
+      - Bearer: []
       parameters:
-        - name: Authorization
-          in: header
-          required: true
-          description: Authorization token
-          schema:
-            type: string
+      - name: Authorization
+        in: header
+        required: true
+        description: Authorization token
+        schema:
+          type: string
       responses:
-        "302":
+        '302':
           description: redirected
-        "401":
+        '401':
           description: unauthorized
       requestBody:
         content:
@@ -53,8 +53,8 @@ paths:
                   body:
                     type: string
               required:
-                - title
-                - body
+              - title
+              - body
           application/xml:
             schema:
               type: object
@@ -65,37 +65,37 @@ paths:
                   body:
                     type: string
               required:
-                - title
-                - body
+              - title
+              - body
   "/api/v1/workers/{id}":
     get:
       summary: Get a worker
       tags:
-        - Books
+      - Worker
       security:
-        - Bearer: []
+      - Bearer: []
       parameters:
-        - name: Authorization
-          in: header
-          required: true
-          description: Authorization token
-          schema:
-            type: string
-        - name: id
-          in: path
-          required: true
-          description: ID of the worker
-          schema:
-            type: string
+      - name: Authorization
+        in: header
+        required: true
+        description: Authorization token
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: ID of the worker
+        schema:
+          type: string
       responses:
-        "200":
+        '200':
           description: worker found
-        "404":
+        '404':
           description: worker not found
-        "401":
+        '401':
           description: unauthorized
 servers:
-  - url: https://{defaultHost}
-    variables:
-      defaultHost:
-        default: www.example.com
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com

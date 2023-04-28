@@ -3,67 +3,74 @@
 require 'swagger_helper'
 require 'rails_helper'
 
-# Describe the workers API
-describe 'Worker API' do
+# Describe the clients API
+describe 'Client API' do
   before do
     @token = "Bearer #{create(:doorkeeper_access_token).token}"
-    @worker = create(:worker).attributes
-    puts @worker
+    @client = create(:client).attributes
+    puts @client
     puts ''
   end
-  # GET /workers
-  # Get all workers
-  path '/api/v1/workers' do
-    get 'Get all workers' do
-      tags 'Worker'
+  # GET /clients
+  # Get all clients
+  path '/api/v1/clients' do
+    get 'Get all clients' do
+      tags 'Client'
       security [Bearer: []]
-      response '200', 'workers found' do
+      parameter name: :Authorization, in: :header, type: :string, required: true,
+                description: 'Authorization token'
+      response '200', 'clients found' do
+        let(:Authorization) { @token }
+        run_test!
+      end
+      response '401', 'unauthorized' do
+        let(:Authorization) { 'invalid' }
         run_test!
       end
     end
   end
 
-  # GET /workers/:id
-  # Get a worker by id
-  path '/api/v1/workers/{id}' do
-    get 'Get a worker' do
-      tags 'Worker'
+  # GET /clients/:id
+  # Get a client by id
+  path '/api/v1/clients/{id}' do
+    get 'Get a client' do
+      tags 'Client'
       security [Bearer: []]
       parameter name: :Authorization, in: :header, type: :string, required: true,
                 description: 'Authorization token'
       parameter name: :id, in: :path, type: :string, required: true,
-                description: 'ID of the worker'
-      response '200', 'worker found' do
+                description: 'ID of the client'
+      response '200', 'client found' do
         let(:Authorization) { @token }
-        let(:id) { @worker['id'] }
+        let(:id) { @client['id'] }
         run_test!
       end
-      response '404', 'worker not found' do
+      response '404', 'client not found' do
         let(:Authorization) { @token }
         let(:id) { 'invalid' }
         run_test!
       end
       response '401', 'unauthorized' do
         let(:Authorization) { 'invalid' }
-        let(:id) { @worker['id'] }
+        let(:id) { @client['id'] }
         run_test!
       end
     end
   end
 
-  # POST /workers
-  # Create a worker
-  path '/api/v1/workers' do
-    post 'Create a worker' do
-      tags 'Worker'
+  # POST /clients
+  # Create a client
+  path '/api/v1/clients' do
+    post 'Create a client' do
+      tags 'Client'
       consumes 'application/json', 'application/xml'
       security [Bearer: []]
       parameter name: :Authorization, in: :header, type: :string, required: true,
                 description: 'Authorization token'
-      parameter name: :worker, in: :body, schema: {
+      parameter name: :client, in: :body, schema: {
         type: :object,
         properties: {
-          worker: {
+          client: {
 
             title: { type: :string },
             body: { type: :string }
@@ -71,14 +78,14 @@ describe 'Worker API' do
         },
         required: %w[title body]
       }
-      response '201', 'worker created' do
+      response '201', 'client created' do
         let(:Authorization) { @token }
-        let(:worker) { { first_name: 'Hobbit', last_name: 'worker', phone_number: '(11)99999999', job: 'job' } }
+        let(:client) { { first_name: 'Hobbit', last_name: 'client', phone_number: '(11)99999999', birthday: (Time.zone.now - 20.years) } }
         run_test!
       end
       response '401', 'unauthorized' do
         let(:Authorization) { 'invalid' }
-        let(:worker) { { worker: attributes_for(:worker) } }
+        let(:client) { { client: attributes_for(:client) } }
         run_test!
       end
     end

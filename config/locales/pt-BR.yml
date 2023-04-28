@@ -12,6 +12,8 @@ pt-BR:
               invalid: Senha atual inválida.
             role:
               not_admin: Somente administradores podem acessar esta página.
+            email:
+              taken: já esta registrado
         doorkeeper/application:
           attributes:
             redirect_uri:

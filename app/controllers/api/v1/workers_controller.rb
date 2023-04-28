@@ -4,11 +4,17 @@ module Api
   module V1
     class WorkersController < ApiController
       before_action :set_worker, only: %i[show edit update destroy]
+      skip_before_action :doorkeeper_authorize!, only: :index
 
       # GET /workers or /workers.json
       def index
         @workers = Worker.all
-        render json: @workers
+
+        render json: {
+          data: ActiveModelSerializers::SerializableResource.new(@workers, each_serializer: WorkerSerializer),
+          status: 200,
+          type: 'Success'
+        }
       end
 
       # GET /workers/1 or /workers/1.json
@@ -30,27 +36,19 @@ module Api
       def create
         @worker = Worker.new(worker_params)
 
-        respond_to do |format|
-          if @worker.save
-            format.html { redirect_to api_v1_worker_url(@worker), notice: 'Worker was successfully created.' }
-            format.json { render :show, status: :created, location: @worker }
-          else
-            format.html { render :new, status: :unprocessable_entity }
-            format.json { render json: @worker.errors, status: :unprocessable_entity }
-          end
+        if @worker.save
+          render json: @schedule, status: :created
+        else
+          render json: @worker.errors, status: :unprocessable_entity
         end
       end
 
       # PATCH/PUT /workers/1 or /workers/1.json
       def update
-        respond_to do |format|
-          if @worker.update(worker_params)
-            format.html { redirect_to api_v1_worker_url(@worker), notice: 'Worker was successfully updated.' }
-            format.json { render :show, status: :ok, location: @worker }
-          else
-            format.html { render :edit, status: :unprocessable_entity }
-            format.json { render json: @worker.errors, status: :unprocessable_entity }
-          end
+        if @worker.update(worker_params)
+          render json: @worker, status: :ok
+        else
+          render json: @worker.errors, status: :unprocessable_entity
         end
       end
 
@@ -58,10 +56,7 @@ module Api
       def destroy
         @worker.destroy
 
-        respond_to do |format|
-          format.html { redirect_to api_v1_workers_url, notice: 'Worker was successfully destroyed.' }
-          format.json { head :no_content }
-        end
+        head :no_content
       end
 
       private
