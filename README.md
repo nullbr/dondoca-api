@@ -62,10 +62,7 @@ ruby -v
 gem install bundler
 ```
 
-- install postgresql:
-  https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart
-
-Install and configure Passenger & Nginx:
+- Install and configure Passenger & Nginx:
 
 ```Bash
 # install nginx
@@ -96,9 +93,25 @@ sudo nano /etc/nginx/sites-enabled/dondoca-api
 sudo service nginx start
 ```
 
-Update System
+- install postgresql:
+  https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart
+
+- install dependencies for pg gem:
+
+```bash
+$ sudo apt install postgresql-contrib libpq-dev
+```
+
+- configure swap space:
+  https://www.digitalocean.com/community/tutorials/how-to-add-swap-space-on-ubuntu-20-04
 
 ```Bash
 sudo apt-get update
 sudo apt-get upgrade
+```
+
+- deploy production with capistrano
+
+```bash
+cap deploy production
 ```
