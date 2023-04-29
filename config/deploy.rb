@@ -4,7 +4,7 @@
 lock '~> 3.17.2'
 
 set :application, 'dondoca-api'
-set :repo_url, 'https://github.com/nullbr/dondoca-api.git'
+set :repo_url, 'git@github.com:nullbr/dondoca-api.git'
 set :branch, 'capistrano-deploy'
 set :deploy_to, "/home/nullbr/#{fetch :application}"
 append :linked_files, 'config/master.key'

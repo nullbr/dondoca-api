@@ -76,6 +76,13 @@ group :development, :test do
 end
 
 group :development do
+  # production deployment with capistrano
+  gem 'bcrypt_pbkdf', '1.1.0'
+  gem 'capistrano', '3.17.2'
+  gem 'capistrano-passenger', '0.2.1'
+  gem 'capistrano-rails', '1.6.2'
+  gem 'capistrano-rbenv', '2.2.0'
+  gem 'ed25519', '1.3.0'
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
 
@@ -104,9 +111,3 @@ gem 'rack-cors', '~> 1.1'
 gem 'rswag', '~> 2.5'
 
 gem 'swagger-blocks', '~> 3.0'
-
-# production deployment with capistrano
-gem 'capistrano', '3.17.2'
-gem 'capistrano-passenger', '0.2.1'
-gem 'capistrano-rails', '1.6.2'
-gem 'capistrano-rbenv', '2.2.0'

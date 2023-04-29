@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require 'capistrano/rails'
-require 'capistrano/rbenv'
-require 'capistrano/passenger'
-
 # Load DSL and set up stages
 require 'capistrano/setup'
 
@@ -22,6 +18,9 @@ require 'capistrano/scm/git'
 install_plugin Capistrano::SCM::Git
 
 # Include tasks from other gems included in your Gemfile
+require 'capistrano/rbenv'
+require 'capistrano/passenger'
+require 'capistrano/rails'
 #
 # For documentation on these, see for example:
 #
