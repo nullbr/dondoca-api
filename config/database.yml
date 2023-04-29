@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: dondoca_api_development
+  database: <%= Rails.application.credentials[:development][:POSTGRES_USER] %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -61,8 +61,8 @@ test:
   host: localhost
   # ENV POSTGRES_USER and POSTGRES_PASSWORD set in CI, usually empty
   # in local tests, where pg is usually running with no authentication required
-  username: <%= ENV['POSTGRES_USER'] %>
-  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  # username: <%= ENV['POSTGRES_USER'] %>
+  # password: <%= ENV['POSTGRES_PASSWORD'] %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -86,6 +86,6 @@ test:
 #
 production:
   <<: *default
-  database: dondoca_api_production
-  username: <%= ENV["DONDOCA_API_DATABASE_USERNAME"] %>
-  password: <%= ENV["DONDOCA_API_DATABASE_PASSWORD"] %>
+  database: <%= Rails.application.credentials[:production][:POSTGRES_DB] %>
+  username: <%= Rails.application.credentials[:production][:POSTGRES_USER] %>
+  password: <%= Rails.application.credentials[:production][:POSTGRES_PASSWORD] %>
