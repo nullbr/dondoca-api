@@ -113,5 +113,5 @@ sudo apt-get upgrade
 - deploy production with capistrano
 
 ```bash
-cap deploy production
+cap production deploy
 ```

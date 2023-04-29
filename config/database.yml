@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: <%= Rails.application.credentials[:development][:POSTGRES_USER] %>
+  database: dondoca_api_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -87,4 +87,5 @@ test:
 production:
   <<: *default
   database: <%= Rails.application.credentials[:production][:POSTGRES_DB] %>
+  username: <%= Rails.application.credentials[:production][:POSTGRES_USER] %>
   password: <%= Rails.application.credentials[:production][:POSTGRES_PASSWORD] %>
