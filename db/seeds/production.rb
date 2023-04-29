@@ -1,16 +1,19 @@
 # frozen_string_literal: true
 
-Doorkeeper::Application.create!(name: 'Dondoca Web', redirect_uri: '', scopes: '') if Doorkeeper::Application.count.zero?
+Doorkeeper::Application.count.zero?
+Doorkeeper::Application.create!(name: 'Dondoca Web', redirect_uri: '', scopes: '')
 
-User.first_or_create(email: 'example@email.com',
-                     password: 'password',
-                     password_confirmation: 'password',
-                     role: User.roles[:admin])
+User.destroy_all
+User.create(email: 'example@email.com',
+            password: 'password',
+            password_confirmation: 'password',
+            role: User.roles[:admin])
 
-Client.first_or_create(first_name: 'Gisely',
-                       last_name: 'Rosa',
-                       phone_number: 11_978_228_466,
-                       birthday: Time.zone.now - 20.years)
+Client.destroy_all
+Client.create(first_name: 'Gisely',
+              last_name: 'Rosa',
+              phone_number: 11_978_228_466,
+              birthday: Time.zone.now - 20.years)
 
 workers = [
   {
