@@ -115,3 +115,9 @@ sudo apt-get upgrade
 ```bash
 cap production deploy
 ```
+
+- enter rails consoler
+
+```bash
+RAILS_ENV=production bundle exec rails c
+```
