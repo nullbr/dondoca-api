@@ -2,7 +2,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'https://dondocasr.com.br'
+    origins Rails.application.credentials[Rails.env.to_sym][:CORS_ORIGIN]
     resource '/api/v1/*',
              headers: :any,
              methods: %i[get post patch put delete]
