@@ -59,7 +59,7 @@ module Api
       # Use callbacks to share common setup or constraints between actions.
       def set_client
         @client = Client.find_by(id: params[:id])
-        render json: { error: 'Client not found' }, status: :not_found if @client.nil?
+        render json: { error: t('errors.not_found', resource_name: t('models.client.name')) }, status: :not_found if @client.nil?
       end
 
       # Only allow a list of trusted parameters through.

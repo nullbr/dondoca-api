@@ -64,7 +64,7 @@ module Api
       # Use callbacks to share common setup or constraints between actions.
       def set_worker
         @worker = Worker.find_by(id: params[:id])
-        render json: { error: 'Worker not found' }, status: :not_found if @worker.nil?
+        render json: { error: t('errors.not_found', resource_name: t('models.worker.name')) }, status: :not_found if @worker.nil?
       end
 
       # Only allow a list of trusted parameters through.

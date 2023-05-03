@@ -9,6 +9,8 @@ namespace :api do
     resources :workers
     resources :clients
     resources :schedules
+    resources :services
+    resources :categories
 
     get '/users/me', to: 'users#me'
   end

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-if Client.all == []
+unless Client.count.positive?
   Client.create(first_name: 'Gisely',
                 last_name: 'Rosa',
                 phone_number: 11_978_228_466,
                 birthday: Time.zone.now - 20.years)
 end
 
-if Worker.all == []
+unless Worker.count.positive?
   workers = [
     {
       first_name: 'Gisely',
@@ -65,7 +65,7 @@ if Worker.all == []
   Worker.create(workers)
 end
 
-if Schedule.all == []
+unless Schedule.count.positive?
   scheduling = [
     {
       start_at: Time.zone.now,
@@ -110,4 +110,310 @@ if Schedule.all == []
   ]
 
   Schedule.create(scheduling)
+end
+
+unless Category.count.positive?
+  categories = [
+    { name: 'Depilação' },
+    { name: 'Mãos e Pés' },
+    { name: 'Cabelo' },
+    { name: 'Sobrancelha' },
+    { name: 'Estética Corporal' },
+    { name: 'Penteados' },
+    { name: 'Estética Capilar' },
+    { name: 'Maquiagem' }
+  ]
+
+  Category.create(categories)
+end
+
+unless Service.count.positive?
+  services = [
+    {
+      name: 'Depilação de Axilas com Linha',
+      duration: 30,
+      description: 'Depilação de Axilas com Linha.',
+      category: Category.find_by(name: 'Depilação'),
+      price: 25
+    },
+    {
+      name: 'Depilação de Buço',
+      duration: 20,
+      description: 'Depilação com cera do Buço. Ideal para mulheres que estão incomodadas com pelos no rosto.',
+      category: Category.find_by(name: 'Depilação'),
+      price: 20
+    },
+    {
+      name: 'Depilação de Coxas',
+      duration: 30,
+      description: 'Depilação das Coxas, com cera.',
+      category: Category.find_by(name: 'Depilação'),
+      price: 35
+    },
+    {
+      name: 'Depilação de Meia Perna',
+      duration: 30,
+      description: 'Meia Perna',
+      category: Category.find_by(name: 'Depilação'),
+      price: 35
+    },
+    {
+      name: 'Depilação de Meia Perna + Virilha',
+      duration: 60,
+      description: 'Meia Perna + Virilha',
+      category: Category.find_by(name: 'Depilação'),
+      price: 100
+    },
+    {
+      name: 'Depilação de Meia Perna + Virilha + Axila',
+      duration: 60,
+      description: 'Meia Perna + Virilha + Axila',
+      category: Category.find_by(name: 'Depilação'),
+      price: 125
+    },
+    {
+      name: 'Depilação de Perna Inteira',
+      duration: 30,
+      description: 'Perna Inteira',
+      category: Category.find_by(name: 'Depilação'),
+      price: 55
+    },
+    {
+      name: 'Depilação de Perna Inteira + Virilha',
+      duration: 60,
+      description: 'Perna Inteira + Virilha',
+      category: Category.find_by(name: 'Depilação'),
+      price: 120
+    },
+    {
+      name: 'Depilação de Rosto Feminino',
+      duration: 30,
+      description: 'Depilação de Rosto Feminino',
+      category: Category.find_by(name: 'Depilação'),
+      price: 30
+    },
+    {
+      name: 'Depilação de Virilha Completa',
+      duration: 60,
+      description: 'Depilação Virilha Completa',
+      category: Category.find_by(name: 'Depilação'),
+      price: 65
+    },
+    {
+      name: 'Depilação Íntima',
+      duration: 45,
+      description: 'Depilação Íntima',
+      category: Category.find_by(name: 'Depilação'),
+      price: 65
+    },
+    {
+      name: 'Blindagem',
+      duration: 60,
+      description: 'A Blindagem, é um procedimento de cobrir o leito da unha com uma camada fina de gel, visando maior resistência das unhas naturais. Cutilagem das unhas das mãos.',
+      category: Category.find_by(name: 'Mãos e Pés'),
+      price: 75
+    },
+    {
+      name: 'Fibra de Vidro',
+      duration: 240,
+      description: 'A fibra de vidro, é um alongament, para deixar as unhas com aspecto de unhas naturais. Cutilagem e esmaltação da unhas das mãos.',
+      category: Category.find_by(name: 'Mãos e Pés'),
+      price: 155
+    },
+    {
+      name: 'Manicure',
+      duration: 60,
+      description: 'Cutilação e esmaltação das unhas das mãos.',
+      category: Category.find_by(name: 'Mãos e Pés'),
+      price: 30
+    },
+    {
+      name: 'Manicure e Pedicure',
+      duration: 120,
+      description: 'Cutilação e esmaltação das unhas das mãos e dos pés.',
+      category: Category.find_by(name: 'Mãos e Pés'),
+      price: 65
+    },
+    {
+      name: 'Manutenção - Banho de Gel',
+      duration: 240,
+      description: 'Feita novamente a cada 15 a 20 dias. Cutilagem e esmaltação das unhas das mãos.',
+      category: Category.find_by(name: 'Mãos e Pés'),
+      price: 75
+    },
+    {
+      name: 'Manutenção - Fibra',
+      duration: 240,
+      description: 'Manutenção feita a cada 20 dias, para manter a naturalidade da unha. Cutilagem e esmaltação das unhas das mãos.',
+      category: Category.find_by(name: 'Mãos e Pés'),
+      price: 85
+    },
+    {
+      name: 'Pedicure',
+      duration: 60,
+      description: 'Cutilação e esmaltação das unhas dos pés. Opções de esmaltes nacionais e internationais.',
+      category: Category.find_by(name: 'Mãos e Pés'),
+      price: 35,
+      min_price: true
+    },
+    {
+      name: 'Escova Modelada c/ Babyliss',
+      duration: 60,
+      category: Category.find_by(name: 'Cabelo'),
+      price: 65
+    },
+    {
+      name: 'Hidratação',
+      duration: 90,
+      category: Category.find_by(name: 'Cabelo'),
+      price: 80
+    },
+    {
+      name: 'Hidratação com Ozônio',
+      duration: 100,
+      category: Category.find_by(name: 'Cabelo'),
+      price: 110
+    },
+    {
+      name: 'Plástica Capilar',
+      duration: 150,
+      category: Category.find_by(name: 'Cabelo'),
+      price: 170
+    },
+    {
+      name: 'Selante Franja',
+      duration: 120,
+      category: Category.find_by(name: 'Cabelo'),
+      price: 120
+    },
+    {
+      name: 'Tonalização de Mechas',
+      duration: 120,
+      category: Category.find_by(name: 'Cabelo'),
+      price: 150
+    },
+    {
+      name: 'Aplicação de Coloração',
+      duration: 90,
+      description: 'Aplicação de Coloração. Produto levado pelo cliente.',
+      category: Category.find_by(name: 'Cabelo'),
+      price: 80,
+      min_price: true
+    },
+    {
+      name: 'Avaliação',
+      duration: 30,
+      description: 'Reunião ou avaliação com cliente',
+      category: Category.find_by(name: 'Cabelo'),
+      price: 0
+    },
+    {
+      name: 'Hidratação Simples',
+      duration: 10,
+      description: 'Hidratação dos Cabelos + Escova.',
+      category: Category.find_by(name: 'Cabelo'),
+      price: 20
+    },
+    {
+      name: 'Mechas',
+      duration: 120,
+      description: 'Clareamento ou coloração de mechas largas. Normalmente os tons contrastam com a cor natural dos fios.',
+      category: Category.find_by(name: 'Cabelo'),
+      price: 400,
+      min_price: true
+    },
+    {
+      name: 'Teste de Mecha',
+      duration: 30,
+      description: 'Teste de descoloração de mecha',
+      category: Category.find_by(name: 'Cabelo'),
+      price: 0
+    },
+    {
+      name: 'Design de Sobrancelha',
+      duration: 30,
+      category: Category.find_by(name: 'Sobrancelha'),
+      price: 35
+    },
+    {
+      name: 'Pintura Sobrancelhas - Henna',
+      duration: 30,
+      category: Category.find_by(name: 'Sobrancelha'),
+      price: 20
+    },
+    {
+      name: 'Pintura Sobrancelhas com Refectocil',
+      duration: 30,
+      category: Category.find_by(name: 'Sobrancelha'),
+      price: 20
+    },
+    {
+      name: 'Sobrancelha',
+      duration: 30,
+      category: Category.find_by(name: 'Sobrancelha'),
+      price: 30,
+      min_price: true
+    },
+    {
+      name: 'Limpeza de Pele',
+      duration: 90,
+      category: Category.find_by(name: 'Estética Corporal'),
+      price: 120
+    },
+    {
+      name: 'Drenagem Linfática',
+      duration: 60,
+      category: Category.find_by(name: 'Estética Corporal'),
+      price: 90,
+      min_price: true
+    },
+    {
+      name: 'Massagem Modeladora ou Lipomodeladora',
+      duration: 60,
+      description: 'A massagem modeladora é executada utilizando movimentos rápidos, repetitivos e firmes sobre os tecidos do corpo favorecendo a quebra das células de gordura localizada que são
+      eliminadas pela corrente sanguínea.',
+      category: Category.find_by(name: 'Estética Corporal'),
+      price: 120,
+      min_price: true
+    },
+    {
+      name: 'Massagem Relaxante',
+      duration: 60,
+      category: Category.find_by(name: 'Estética Corporal'),
+      price: 90,
+      min_price: true
+    },
+    {
+      name: 'Baby Liss / Cachos',
+      duration: 60,
+      description: 'Cachos nos cabelos. Técnica pode ser realizada manualmente ou com babyliss. Os cachos estão em alta e dão um ar informal ao visual.',
+      category: Category.find_by(name: 'Penteados'),
+      price: 60,
+      min_price: true
+    },
+    {
+      name: 'Teste de Noiva',
+      duration: 180,
+      category: Category.find_by(name: 'Penteados'),
+      price: 0
+    },
+    {
+      name: 'Estética Capilar',
+      duration: 60,
+      description: 'O estudo da estética capilar envolve tricologia, anatomia capilar, patologias dos fios e do couro cabeludo e suas formas de tratamento, terapias capilares, tipos de alisamentos
+      e químicas utilizadas no fio de cabelo, hidratações dos cabelos, modo correto de fazer a higienização, diagnosticar o fio de cabelo.',
+      category: Category.find_by(name: 'Estética Capilar'),
+      price: 100,
+      min_price: true
+    },
+    {
+      name: 'Maquiagem',
+      duration: 60,
+      category: Category.find_by(name: 'Maquiagem'),
+      price: 150,
+      min_price: true
+    }
+  ]
+
+  Service.create(services)
 end
