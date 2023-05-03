@@ -2,6 +2,8 @@
 
 class Worker < ApplicationRecord
   has_many :schedules, dependent: :destroy, inverse_of: :worker
+  has_many :worker_categories, dependent: :destroy
+  has_many :categories, through: :worker_categories
 
   validates :first_name, :job, presence: true
   validates :first_name, :last_name, :job, length: { maximum: 100 }

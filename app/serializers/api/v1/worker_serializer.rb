@@ -11,7 +11,8 @@ module Api
                  :updated_at,
                  :instagram,
                  :image_url,
-                 :phone_number
+                 :phone_number,
+                 :categories
     end
   end
 end

@@ -19,17 +19,11 @@ module Api
 
       # GET /workers/1 or /workers/1.json
       def show
-        render json: @worker
-      end
-
-      # GET /workers/new
-      def new
-        render json: @worker = Worker.new
-      end
-
-      # GET /workers/1/edit
-      def edit
-        render json: @worker
+        render json: {
+          data: ActiveModelSerializers::SerializableResource.new(@worker, serializer: WorkerSerializer),
+          status: 200,
+          type: 'Success'
+        }
       end
 
       # POST /workers or /workers.json
@@ -37,7 +31,11 @@ module Api
         @worker = Worker.new(worker_params)
 
         if @worker.save
-          render json: @schedule, status: :created
+          render json: {
+            data: ActiveModelSerializers::SerializableResource.new(@worker, serializer: WorkerSerializer),
+            status: 201,
+            type: 'Success'
+          }
         else
           render json: @worker.errors, status: :unprocessable_entity
         end
@@ -45,8 +43,15 @@ module Api
 
       # PATCH/PUT /workers/1 or /workers/1.json
       def update
-        if @worker.update(worker_params)
-          render json: @worker, status: :ok
+        categories = Category.find(worker_params['categories'])
+        @worker.categories = categories
+
+        if @worker.update(worker_params.except(:categories))
+          render json: {
+            data: ActiveModelSerializers::SerializableResource.new(@worker, serializer: WorkerSerializer),
+            status: 200,
+            type: 'Success'
+          }
         else
           render json: @worker.errors, status: :unprocessable_entity
         end
@@ -69,7 +74,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def worker_params
-        params.require(:worker).permit(:first_name, :last_name, :phone_number, :job)
+        params.require(:worker).permit(:first_name, :last_name, :phone_number, :job, :instagram, :image_url, categories: [])
       end
     end
   end
