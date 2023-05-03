@@ -28,6 +28,7 @@ unless Worker.count.positive?
     {
       first_name: 'Silvia',
       job: 'Manicure/Pedicure',
+      instagram: 'silvianaildesigner7',
       image_url: 'https://firebasestorage.googleapis.com/v0/b/dondoca-a6bd8.appspot.com/o/profile_images%2Fsilvia.jpeg?alt=media&token=8c187b3b-f77c-4140-bdb5-76be4fbd85c1'
     },
     {
@@ -43,22 +44,30 @@ unless Worker.count.positive?
     {
       first_name: 'Luciana',
       job: 'Manicure/Pedicure',
+      instagram: 'lucianamonteiro6148',
       image_url: 'https://firebasestorage.googleapis.com/v0/b/dondoca-a6bd8.appspot.com/o/profile_images%2Fluciana.jpeg?alt=media&token=60ce99c0-5c18-459a-b00d-42e042535746'
     },
     {
       first_name: 'Marcela',
       job: 'Estética',
+      instagram: 'marcelasantos_esteticista',
       image_url: 'https://firebasestorage.googleapis.com/v0/b/dondoca-a6bd8.appspot.com/o/profile_images%2Fmarcela.jpeg?alt=media&token=935785ae-ffd3-4264-9328-02cdc04a845b'
     },
     {
       first_name: 'Midiã',
       job: 'Manicure/Pedicure',
+      instagram: 'miicarvalho.20',
       image_url: 'https://firebasestorage.googleapis.com/v0/b/dondoca-a6bd8.appspot.com/o/profile_images%2Fmidia.jpeg?alt=media&token=4d23c220-b5ff-4964-b9ee-8bd92cb4571d'
     },
     {
       first_name: 'Sandra',
       job: 'Manicure/Pedicure',
       image_url: 'https://firebasestorage.googleapis.com/v0/b/dondoca-a6bd8.appspot.com/o/profile_images%2Fsandra.jpeg?alt=media&token=c56d9531-9b37-450c-b6a1-c9e73abe0827'
+    },
+    {
+      first_name: 'Daniela',
+      job: 'Manicure/Pedicure',
+      image_url: 'https://firebasestorage.googleapis.com/v0/b/dondoca-a6bd8.appspot.com/o/profile_images%2Fdaniela.jpeg?alt=media&token=6fff85a6-f1d3-49c5-8a4f-71cae0059f84'
     }
   ]
 
