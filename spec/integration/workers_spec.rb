@@ -8,8 +8,6 @@ describe 'Worker API' do
   before do
     @token = "Bearer #{create(:doorkeeper_access_token).token}"
     @worker = create(:worker).attributes
-    puts @worker
-    puts ''
   end
   # GET /workers
   # Get all workers
@@ -64,7 +62,6 @@ describe 'Worker API' do
         type: :object,
         properties: {
           worker: {
-
             title: { type: :string },
             body: { type: :string }
           }
@@ -73,7 +70,7 @@ describe 'Worker API' do
       }
       response '201', 'worker created' do
         let(:Authorization) { @token }
-        let(:worker) { { first_name: 'Hobbit', last_name: 'worker', phone_number: '(11)99999999', job: 'job' } }
+        let(:worker) { { first_name: 'Hobbit', last_name: 'worker', phone_number: 1_199_999_999, job: 'job' } }
         run_test!
       end
       response '401', 'unauthorized' do

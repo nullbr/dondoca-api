@@ -8,8 +8,6 @@ describe 'Client API' do
   before do
     @token = "Bearer #{create(:doorkeeper_access_token).token}"
     @client = create(:client).attributes
-    puts @client
-    puts ''
   end
   # GET /clients
   # Get all clients

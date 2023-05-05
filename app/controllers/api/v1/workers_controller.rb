@@ -3,10 +3,10 @@
 module Api
   module V1
     class WorkersController < ApiController
-      before_action :set_worker, only: %i[show edit update destroy]
+      before_action :set_worker, only: %i[show update destroy]
       skip_before_action :doorkeeper_authorize!, only: :index
 
-      # GET /workers or /workers.json
+      # GET /workers
       def index
         @workers = Worker.all
 
@@ -17,7 +17,7 @@ module Api
         }
       end
 
-      # GET /workers/1 or /workers/1.json
+      # GET /workers/1
       def show
         render json: {
           data: ActiveModelSerializers::SerializableResource.new(@worker, serializer: WorkerSerializer),
@@ -26,7 +26,7 @@ module Api
         }
       end
 
-      # POST /workers or /workers.json
+      # POST /workers
       def create
         @worker = Worker.new(worker_params)
 
@@ -37,11 +37,11 @@ module Api
             type: 'Success'
           }
         else
-          render json: @worker.errors, status: :unprocessable_entity
+          render json: { data: @worker.errors, status: :unprocessable_entity, type: 'Error' }
         end
       end
 
-      # PATCH/PUT /workers/1 or /workers/1.json
+      # PATCH/PUT /workers/1
       def update
         categories = Category.find(worker_params['categories'])
         @worker.categories = categories
@@ -53,11 +53,11 @@ module Api
             type: 'Success'
           }
         else
-          render json: @worker.errors, status: :unprocessable_entity
+          render json: { data: @worker.errors, status: :unprocessable_entity, type: 'Error' }
         end
       end
 
-      # DELETE /workers/1 or /workers/1.json
+      # DELETE /workers/1
       def destroy
         @worker.destroy
 
