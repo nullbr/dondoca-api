@@ -10,20 +10,12 @@ module Api
       def index
         @workers = Worker.all
 
-        render json: {
-          data: ActiveModelSerializers::SerializableResource.new(@workers, each_serializer: WorkerSerializer),
-          status: 200,
-          type: 'Success'
-        }
+        render json: @workers, status: :ok
       end
 
       # GET /workers/1
       def show
-        render json: {
-          data: ActiveModelSerializers::SerializableResource.new(@worker, serializer: WorkerSerializer),
-          status: 200,
-          type: 'Success'
-        }
+        render json: @worker, status: :ok
       end
 
       # POST /workers
@@ -31,13 +23,9 @@ module Api
         @worker = Worker.new(worker_params)
 
         if @worker.save
-          render json: {
-            data: ActiveModelSerializers::SerializableResource.new(@worker, serializer: WorkerSerializer),
-            status: 201,
-            type: 'Success'
-          }
+          render json: @worker, status: :created
         else
-          render json: { data: @worker.errors, status: :unprocessable_entity, type: 'Error' }
+          render json: @worker.errors, status: :unprocessable_entity
         end
       end
 
@@ -47,13 +35,10 @@ module Api
         @worker.categories = categories
 
         if @worker.update(worker_params.except(:categories))
-          render json: {
-            data: ActiveModelSerializers::SerializableResource.new(@worker, serializer: WorkerSerializer),
-            status: 200,
-            type: 'Success'
-          }
+          render json: @worker, status: :ok
+
         else
-          render json: { data: @worker.errors, status: :unprocessable_entity, type: 'Error' }
+          render json: @worker.errors, status: :unprocessable_entity
         end
       end
 

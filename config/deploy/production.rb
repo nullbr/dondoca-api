@@ -56,4 +56,4 @@
 #     # password: "please use keys"
 #   }
 
-server '143.244.174.232', user: 'nullbr', roles: %w[app db web]
+server ENV['SERVER_HOST'], user: ENV['USERNAME'], roles: %w[app db web]
