@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'faker'
+
 FactoryBot.define do
   # Create a worker
   factory :worker do
