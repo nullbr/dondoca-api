@@ -3,56 +3,46 @@
 module Api
   module V1
     class WorkersController < ApiController
-      before_action :set_worker, only: %i[show edit update destroy]
+      before_action :set_worker, only: %i[show update destroy]
       skip_before_action :doorkeeper_authorize!, only: :index
 
-      # GET /workers or /workers.json
+      # GET /workers
       def index
         @workers = Worker.all
 
-        render json: {
-          data: ActiveModelSerializers::SerializableResource.new(@workers, each_serializer: WorkerSerializer),
-          status: 200,
-          type: 'Success'
-        }
+        render json: @workers, status: :ok
       end
 
-      # GET /workers/1 or /workers/1.json
+      # GET /workers/1
       def show
-        render json: @worker
+        render json: @worker, status: :ok
       end
 
-      # GET /workers/new
-      def new
-        render json: @worker = Worker.new
-      end
-
-      # GET /workers/1/edit
-      def edit
-        render json: @worker
-      end
-
-      # POST /workers or /workers.json
+      # POST /workers
       def create
         @worker = Worker.new(worker_params)
 
         if @worker.save
-          render json: @schedule, status: :created
+          render json: @worker, status: :created
         else
           render json: @worker.errors, status: :unprocessable_entity
         end
       end
 
-      # PATCH/PUT /workers/1 or /workers/1.json
+      # PATCH/PUT /workers/1
       def update
-        if @worker.update(worker_params)
+        categories = Category.find(worker_params['categories'])
+        @worker.categories = categories
+
+        if @worker.update(worker_params.except(:categories))
           render json: @worker, status: :ok
+
         else
           render json: @worker.errors, status: :unprocessable_entity
         end
       end
 
-      # DELETE /workers/1 or /workers/1.json
+      # DELETE /workers/1
       def destroy
         @worker.destroy
 
@@ -64,12 +54,12 @@ module Api
       # Use callbacks to share common setup or constraints between actions.
       def set_worker
         @worker = Worker.find_by(id: params[:id])
-        render json: { error: 'Worker not found' }, status: :not_found if @worker.nil?
+        render json: { error: t('errors.not_found', resource_name: t('models.worker.name')) }, status: :not_found if @worker.nil?
       end
 
       # Only allow a list of trusted parameters through.
       def worker_params
-        params.require(:worker).permit(:first_name, :last_name, :phone_number, :job)
+        params.require(:worker).permit(:first_name, :last_name, :phone_number, :job, :instagram, :image_url, categories: [])
       end
     end
   end

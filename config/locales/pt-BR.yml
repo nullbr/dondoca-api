@@ -141,3 +141,16 @@ pt-BR:
           home: Home
       application:
         title: Autorização OAuth necessária
+  models:
+    service:
+      name: Serviço
+    category:
+      name: Categoria
+    schedule:
+      name: Agendamento
+    worker:
+      name: Profissional
+    client:
+      name: Cliente
+  errors:
+    not_found: "%{resource_name} não encontrado"

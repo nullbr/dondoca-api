@@ -5,7 +5,7 @@ module Api
     class SchedulesController < ApiController
       before_action :set_schedule, only: %i[show edit update destroy]
 
-      # GET /schedules or /schedules.json
+      # GET /schedules
       def index
         start_date = check_date(schedule_params[:start_date])
         end_date = check_date(schedule_params[:end_date])
@@ -21,7 +21,7 @@ module Api
         }
       end
 
-      # GET /schedules/1 or /schedules/1.json
+      # GET /schedules/1
       def show
         render json: @schedule
       end
@@ -36,7 +36,7 @@ module Api
         render json: @schedule
       end
 
-      # POST /schedules or /schedules.json
+      # POST /schedules
       def create
         @schedule = Schedule.new(schedule_params)
 
@@ -47,7 +47,7 @@ module Api
         end
       end
 
-      # PATCH/PUT /schedules/1 or /schedules/1.json
+      # PATCH/PUT /schedules/1
       def update
         if @schedule.update(schedule_params)
           render json: @schedule, status: :ok
@@ -57,7 +57,7 @@ module Api
         end
       end
 
-      # DELETE /schedules/1 or /schedules/1.json
+      # DELETE /schedules/1
       def destroy
         @schedule.destroy
 
@@ -69,7 +69,7 @@ module Api
       # Use callbacks to share common setup or constraints between actions.
       def set_schedule
         @schedule = Schedule.find_by(id: params[:id])
-        render json: { error: 'Schedule not found' }, status: :not_found if @schedule.nil?
+        render json: { error: t('errors.not_found', resource_name: t('models.schedule.name')) }, status: :not_found if @schedule.nil?
       end
 
       # Only allow a list of trusted parameters through.
