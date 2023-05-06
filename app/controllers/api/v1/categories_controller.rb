@@ -9,11 +9,8 @@ module Api
       # GET /categories
       def index
         categories = Category.all
-        render json: {
-          data: ActiveModelSerializers::SerializableResource.new(categories, each_serializer: CategorySerializer),
-          status: 200,
-          type: 'Success'
-        }
+        render json: categories,
+               status: :ok
       end
 
       # GET /categories/1

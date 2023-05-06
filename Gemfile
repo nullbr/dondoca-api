@@ -53,9 +53,6 @@ gem 'doorkeeper-i18n'
 # Environment Variables
 gem 'dotenv-rails', '~> 2.7.6'
 
-# Adding serializers
-gem 'active_model_serializers'
-
 gem 'devise', '~> 4.8'
 
 gem 'doorkeeper', '~> 5.5'

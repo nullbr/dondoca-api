@@ -33,12 +33,10 @@ jobs:
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-      # Add or replace dependency steps here
-      - name: Install Ruby and gems
+        uses: actions/checkout@v3
+      - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.1.2"
           bundler-cache: true
       - name: Setup Code Climate test-reporter
         run: |

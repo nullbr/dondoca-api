@@ -14,11 +14,8 @@ module Api
 
         schedules = schedules.by_worker(schedule_params[:worker_id]) if schedule_params[:worker_id].to_i.positive?
 
-        render json: {
-          data: ActiveModelSerializers::SerializableResource.new(schedules, each_serializer: ScheduleSerializer),
-          status: 200,
-          type: 'Success'
-        }
+        render json: schedules,
+               status: :ok
       end
 
       # GET /schedules/1
