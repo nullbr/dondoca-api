@@ -7,6 +7,8 @@ pt-BR:
           attributes:
             current_password:
               invalid: inválido
+            email:
+              taken: em uso
             role:
               not_admin: não é administrador
   doorkeeper:

@@ -11,13 +11,14 @@ module Api
 
         def create
           allowed_params = user_params.except(:client_id)
-          user = User.new(allowed_params)
+          @user = User.new(allowed_params)
 
-          if user.save
-            render json: render_user(user, @client_app), status: :ok
+          if @user.save
+            # render json: render_user(user, @client_app), status: :ok
+            generate_access_token(@user, @client_app)
+            render :show
           else
-
-            render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+            render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
           end
         end
 
@@ -41,7 +42,7 @@ module Api
         private
 
         def validate_client
-          @client_app = Doorkeeper::Application.find_by(uid: params[:client_id])
+          @client_app = Doorkeeper::Application.find_by(uid: user_params[:client_id])
           return if @client_app
 
           render json: { errors: [t('doorkeeper.errors.messages.invalid_client')] },
