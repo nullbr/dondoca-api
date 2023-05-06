@@ -118,6 +118,7 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.5.0)
+    docile (1.1.5)
     doorkeeper (5.6.6)
       railties (>= 5)
     doorkeeper-i18n (5.2.6)
@@ -315,6 +316,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    simplecov (0.13.0)
+      docile (~> 1.1.0)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.2)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -399,6 +405,7 @@ DEPENDENCIES
   rubocop-rspec
   ruby_audit
   selenium-webdriver
+  simplecov (~> 0.13.0)
   sprockets-rails
   stimulus-rails
   swagger-blocks (~> 3.0)

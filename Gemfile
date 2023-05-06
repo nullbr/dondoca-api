@@ -80,6 +80,8 @@ group :development, :test do
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
+  # Test coverage
+  gem 'simplecov', '~> 0.13.0', require: false
 end
 
 group :development do
