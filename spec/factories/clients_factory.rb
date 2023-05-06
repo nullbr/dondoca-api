@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  Faker::Config.locale = 'pt-BR'
   # Create a client
   factory :client do
     first_name { Faker::Name.first_name }
