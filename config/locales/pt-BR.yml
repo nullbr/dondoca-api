@@ -1,5 +1,20 @@
 ---
 pt-BR:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            current_password:
+              invalid: inválido
+            role:
+              not_admin: não é administrador
+  doorkeeper:
+    errors:
+      messages:
+        invalid_client: Cliente inválido
+        revoke:
+          unauthorized: Não autorizado
   errors:
     not_found: "%{resource_name} não encontrado"
   models:
