@@ -1,5 +1,7 @@
 # DONDOCA API
 
+[![Github Actions CI](https://github.com/nullbr/dondoca-api/actions/workflows/ci.yml/badge.svg?event=push)](https://github.com/nullbr/dondoca-api/actions)
+
 ### This is the backend for Dondoca Web
 
 It handles user authentication with Doorkeeper, and allows for website cutomization of workers, and services offered.
