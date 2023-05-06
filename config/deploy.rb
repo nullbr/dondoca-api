@@ -7,7 +7,7 @@ set :application, 'dondoca-api'
 set :repo_url, 'git@github.com:nullbr/dondoca-api.git'
 set :branch, 'capistrano-deploy'
 set :deploy_to, "/home/nullbr/#{fetch :application}"
-append :linked_files, '.env.production'
+append :linked_files, 'config/master.key', '.env.production'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
