@@ -40,6 +40,11 @@ jobs:
         with:
           ruby-version: "3.1.2"
           bundler-cache: true
+      - name: Setup Code Climate test-reporter
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          ./cc-test-reporter before-build
       - name: Bundle install
         run: bundle install
       # Add or replace database setup steps here
@@ -49,10 +54,15 @@ jobs:
       - name: Seed database
         run: bin/rails db:seed environment=test
       # Add or replace test runners here
+      - name: I18n Health
+        run: bundle exec i18n-tasks health
       - name: Run specs
         run: bin/rake
       - name: Run Rails tests
         run: bundle exec rails test
+      - name: Report to CodeClimate
+        run: |
+          ./cc-test-reporter after-build --exit-code 0
 
   lint:
     runs-on: ubuntu-latest
