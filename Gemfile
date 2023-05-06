@@ -38,9 +38,6 @@ gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
@@ -53,8 +50,21 @@ gem 'bootsnap', require: false
 # Extand doorkeeper i18n
 gem 'doorkeeper-i18n'
 
+# Environment Variables
+gem 'dotenv-rails', '~> 2.7.6'
+
 # Adding serializers
 gem 'active_model_serializers'
+
+gem 'devise', '~> 4.8'
+
+gem 'doorkeeper', '~> 5.5'
+
+gem 'rack-cors', '~> 1.1'
+
+gem 'rswag', '~> 2.5'
+
+gem 'swagger-blocks', '~> 3.0'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -102,12 +112,9 @@ group :test do
   gem 'factory_bot_rails'
 end
 
-gem 'devise', '~> 4.8'
+group :assets do
+  gem 'uglifier', '~> 4.2'
+end
 
-gem 'doorkeeper', '~> 5.5'
-
-gem 'rack-cors', '~> 1.1'
-
-gem 'rswag', '~> 2.5'
-
-gem 'swagger-blocks', '~> 3.0'
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
