@@ -9,21 +9,17 @@ module Api
       # GET /workers
       def index
         @workers = Worker.all
-
-        render json: @workers, status: :ok
       end
 
       # GET /workers/1
-      def show
-        render json: @worker, status: :ok
-      end
+      def show; end
 
       # POST /workers
       def create
         @worker = Worker.new(worker_params)
 
         if @worker.save
-          render json: @worker, status: :created
+          render :show, status: :created
         else
           render json: @worker.errors, status: :unprocessable_entity
         end
@@ -35,7 +31,7 @@ module Api
         @worker.categories = categories
 
         if @worker.update(worker_params.except(:categories))
-          render json: @worker, status: :ok
+          render :show, status: :ok
 
         else
           render json: @worker.errors, status: :unprocessable_entity
