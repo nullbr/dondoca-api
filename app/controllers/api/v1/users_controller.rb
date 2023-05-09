@@ -8,7 +8,7 @@ module Api
       # GET /me.json
       def me
         if @current_user.nil?
-          render json: { error: 'Not Authorized' }, status: :unauthorized
+          render_errors(['Not Authorized'], :unauthorized)
         else
           render :show
         end

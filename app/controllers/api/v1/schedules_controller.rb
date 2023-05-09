@@ -14,8 +14,7 @@ module Api
 
         schedules = schedules.by_worker(schedule_params[:worker_id]) if schedule_params[:worker_id].to_i.positive?
 
-        render json: schedules,
-               status: :ok
+        render json: schedules
       end
 
       private

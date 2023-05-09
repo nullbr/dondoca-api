@@ -8,8 +8,7 @@ module Api
       # GET /categories
       def index
         categories = Category.all
-        render json: categories,
-               status: :ok
+        render json: categories
       end
     end
   end
