@@ -7,6 +7,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :email, format: URI::MailTo::EMAIL_REGEXP
+  # validates :username, format: /[!@%&"]/
+
+  validates :username, uniqueness: true
+  validates :username, presence: true
+
   enum role: { user: 0, admin: 1 }
 
   # the authenticate method from devise documentation

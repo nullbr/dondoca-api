@@ -8,6 +8,7 @@ describe 'Client API' do
   before do
     @token = "Bearer #{create(:doorkeeper_access_token).token}"
     @client = create(:client).attributes
+    @client_id = create(:doorkeeper_application).uid
   end
   # GET /clients
   # Get all clients
@@ -17,12 +18,16 @@ describe 'Client API' do
       security [Bearer: []]
       parameter name: :Authorization, in: :header, type: :string, required: true,
                 description: 'Authorization token'
+      parameter name: :Client, in: :header, type: :string, required: true,
+                description: 'Client id'
       response '200', 'clients found' do
         let(:Authorization) { @token }
+        let(:Client) { @client_id }
         run_test!
       end
       response '401', 'unauthorized' do
         let(:Authorization) { 'invalid' }
+        let(:Client) { @client_id }
         run_test!
       end
     end
@@ -36,20 +41,25 @@ describe 'Client API' do
       security [Bearer: []]
       parameter name: :Authorization, in: :header, type: :string, required: true,
                 description: 'Authorization token'
+      parameter name: :Client, in: :header, type: :string, required: true,
+                description: 'Client id'
       parameter name: :id, in: :path, type: :string, required: true,
                 description: 'ID of the client'
       response '200', 'client found' do
         let(:Authorization) { @token }
+        let(:Client) { @client_id }
         let(:id) { @client['id'] }
         run_test!
       end
       response '404', 'client not found' do
         let(:Authorization) { @token }
+        let(:Client) { @client_id }
         let(:id) { 'invalid' }
         run_test!
       end
       response '401', 'unauthorized' do
         let(:Authorization) { 'invalid' }
+        let(:Client) { @client_id }
         let(:id) { @client['id'] }
         run_test!
       end
@@ -65,6 +75,8 @@ describe 'Client API' do
       security [Bearer: []]
       parameter name: :Authorization, in: :header, type: :string, required: true,
                 description: 'Authorization token'
+      parameter name: :Client, in: :header, type: :string, required: true,
+                description: 'Client id'
       parameter name: :client, in: :body, schema: {
         type: :object,
         properties: {
@@ -78,11 +90,13 @@ describe 'Client API' do
       }
       response '201', 'client created' do
         let(:Authorization) { @token }
-        let(:client) { { first_name: 'Hobbit', last_name: 'client', phone_number: '(11)99999999', birthday: (Time.zone.now - 20.years) } }
+        let(:Client) { @client_id }
+        let(:client) { { client: attributes_for(:client) } }
         run_test!
       end
       response '401', 'unauthorized' do
         let(:Authorization) { 'invalid' }
+        let(:Client) { @client_id }
         let(:client) { { client: attributes_for(:client) } }
         run_test!
       end

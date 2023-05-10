@@ -9,23 +9,19 @@ module Api
       # GET /workers
       def index
         @workers = Worker.all
-
-        render json: @workers, status: :ok
       end
 
       # GET /workers/1
-      def show
-        render json: @worker, status: :ok
-      end
+      def show; end
 
       # POST /workers
       def create
         @worker = Worker.new(worker_params)
 
         if @worker.save
-          render json: @worker, status: :created
+          render :show, status: :created
         else
-          render json: @worker.errors, status: :unprocessable_entity
+          render_errors(@worker.errors.messages)
         end
       end
 
@@ -35,10 +31,10 @@ module Api
         @worker.categories = categories
 
         if @worker.update(worker_params.except(:categories))
-          render json: @worker, status: :ok
+          render :show
 
         else
-          render json: @worker.errors, status: :unprocessable_entity
+          render_errors(@worker.errors.messages)
         end
       end
 
@@ -54,7 +50,11 @@ module Api
       # Use callbacks to share common setup or constraints between actions.
       def set_worker
         @worker = Worker.find_by(id: params[:id])
-        render json: { error: t('errors.not_found', resource_name: t('models.worker.name')) }, status: :not_found if @worker.nil?
+
+        return unless @worker.nil?
+
+        errors_messages = [t('errors.not_found', resource_name: t('models.worker.name'))]
+        render_errors(errors_messages, :not_found)
       end
 
       # Only allow a list of trusted parameters through.
