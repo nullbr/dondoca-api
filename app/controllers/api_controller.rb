@@ -20,8 +20,10 @@ class ApiController < ApplicationController
     @current_user ||= User.find_by(id: doorkeeper_token[:resource_owner_id])
   end
 
+  # Fetch client from id in headers
   def validate_client!
-    @client_app = Doorkeeper::Application.find_by(uid: params[:client_id])
+    client_id = request.headers['Client']
+    @client_app = Doorkeeper::Application.find_by(uid: client_id)
     return if @client_app
 
     render_errors([t('doorkeeper.errors.messages.invalid_client')], :unauthorized)
