@@ -9,6 +9,7 @@ jobs:
     env:
       USERNAME: ${{secrets.USERNAME}}
       SERVER_HOST: ${{secrets.SERVER_HOST}}
+      DATABASE_URL: ${{secrets.DATABASE_URL}}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -17,6 +18,8 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+      - name: Create env file
+        run: bin/create_env.sh
       - uses: miloserdow/capistrano-deploy@v3 # you can use miloserdow/capistrano-deploy@master for the cuurent stable dev version
         with:
           target: production # Defines the environment that will be used for the deployment
