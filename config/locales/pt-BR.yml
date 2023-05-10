@@ -18,13 +18,7 @@ pt-BR:
   errors:
     not_found: "%{resource_name} não encontrado"
   models:
-    category:
-      name: Categoria
     client:
       name: Cliente
-    schedule:
-      name: Agendamento
-    service:
-      name: Serviço
     worker:
       name: Profissional

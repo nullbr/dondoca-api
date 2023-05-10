@@ -3,8 +3,6 @@
 module Api
   module V1
     class SchedulesController < ApiController
-      before_action :set_schedule, only: %i[show edit update destroy]
-
       # GET /schedules
       def index
         start_date = check_date(schedule_params[:start_date])
