@@ -1,6 +1,7 @@
 # DONDOCA API
 
 [![Github Actions CI](https://github.com/nullbr/dondoca-api/actions/workflows/ci.yml/badge.svg?event=push)](https://github.com/nullbr/dondoca-api/actions)
+[![Github Actions CD](https://github.com/nullbr/dondoca-api/actions/workflows/cd.yml/badge.svg?event=push)](https://github.com/nullbr/dondoca-api/actions)
 
 ### This is the backend for Dondoca Web
 
