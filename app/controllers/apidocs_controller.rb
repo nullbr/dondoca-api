@@ -8,19 +8,19 @@ class ApidocsController < ApplicationController
 
     info do
       key :version, '1.0.0'
-      key :title, 'Devise + Doorkeeper Starter'
-      key :description, 'Devise + Doorkeeper Starter API documentation'
+      key :title, 'Authentication'
+      key :description, 'Devise + Doorkeeper Dondoca API documentation'
 
       contact do
-        key :name, 'Devise + Doorkeeper Starter'
-        key :url, 'https://devise-doorkeeper-starter.herokuapp.com'
-        key :email, 'nejdetkadir.550@gmail.com'
+        key :name, 'Dondoca'
+        key :url, 'https://dondocasr.com.br'
+        key :email, 'bmarianoleite3@gmail.com'
       end
     end
 
     server do
-      key :url, "#{Rails.env.development? ? 'localhost:3000' : 'https://devise-doorkeeper-starter.herokuapp.com'}/api/v1/"
-      key :description, 'Branchsight API'
+      key :url, "#{Rails.env.development? ? 'localhost:3000' : 'https://api.dondocasr.com.br'}/api/v1/"
+      key :description, 'Doncoca API'
     end
   end
 

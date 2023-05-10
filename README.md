@@ -6,7 +6,7 @@
 ![Ruby Version](https://img.shields.io/badge/ruby_version-3.1.2-blue.svg)
 ![Rails Version](https://img.shields.io/badge/rails_version-7.0.2-blue.svg)
 
-### This is the backend for Dondoca Web
+## This is the backend for Dondoca Web
 
 It handles user authentication with Doorkeeper, and allows for website cutomization of workers, and services offered.
 
@@ -15,24 +15,49 @@ This is under active cuntruction, features getting implemented:
 - Customr scheduling
 - Shopping loginc for gift cards and mambership
 
-### Instalation
+## Instalation
 
-Prerequisite:
+### Prerequisite:
 
 - ruby 3.1.2
 - rails 7.0.2
 - postgreSQL
 
-Developement:
+### Developement:
 
-```Bash
-bundle install
-rails db:create
-rails db:migrate
-rails db:seed
-```
+1. Clone this repo
+1. Install PostgreSQL in case you don't have it
+1. Run `./bootstrap.sh`
+1. `rspec` and make sure all tests pass
+1. `rails s`
+1. You can now try your REST services!
 
-### Run Tests:
+### Docker:
+
+1. Have `docker` and `docker-compose` installed (You can check this by doing `docker -v` and `docker-compose -v`)
+1. Run `bootstrap.sh` with the name of your project and the `-d` or `--for-docker` flag like `./bootstrap.sh -d`
+1. Generate a secret key for the app by running `bin/web rake secret`, copy it and add it in your environment variables.
+1. (Optional) If you want to deny access to the database from outside of the `docker-compose` network, remove the `ports` key in the `docker-compose.yml` from the `db` service.
+1. (Optional) Run the tests to make sure everything is working with: `bin/rspec .`.
+1. You can now try your REST services!
+
+## Dev scripts
+
+This template provides a handful of scripts to make your dev experience better!
+
+- bin/bundle to run any `bundle` commands.
+  - `bin/bundle install`
+- bin/rails to run any `rails` commands
+  - `bin/rails console`
+- bin/web to run any `bash` commands
+  - `bin/web ls`
+- bin/rspec to run specs
+  - `bin/rspec .`
+
+You don't have to use these but they are designed to run the same when running with docker or not.
+To illustrate, `bin/rails console` will run the console in the docker container when running with docker and locally when not.
+
+## Run Tests:
 
 ```Bash
 bundle exec rubocop --parallel

@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 
+unless Doorkeeper::Application.count.positive?
+  Doorkeeper::Application.create(
+    name: 'Example Client',
+    redirect_uri: '',
+    scopes: ''
+  )
+end
+
 unless Client.count.positive?
   Client.create(first_name: 'Gisely',
                 last_name: 'Rosa',
