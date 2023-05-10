@@ -2,7 +2,8 @@
 
 FactoryBot.define do
   factory :doorkeeper_application, class: 'Doorkeeper::Application' do
-    name { Faker::App.name }
+    Faker::Config.locale = 'pt-BR'
+    name { 'Example Client' }
     redirect_uri { '' }
     scopes { '' }
   end

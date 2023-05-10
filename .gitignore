@@ -35,4 +35,7 @@
 # Ignore ds_store files.
 .DS_Store
 
+# Ignore simplecov coverage report
+/coverage/
+
 .byebug_history

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'faker'
+
 FactoryBot.define do
   factory :doorkeeper_access_token, class: 'Doorkeeper::AccessToken' do
     association :application, factory: :doorkeeper_application

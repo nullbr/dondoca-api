@@ -53,9 +53,6 @@ gem 'doorkeeper-i18n'
 # Environment Variables
 gem 'dotenv-rails', '~> 2.7.6'
 
-# Adding serializers
-gem 'active_model_serializers'
-
 gem 'devise', '~> 4.8'
 
 gem 'doorkeeper', '~> 5.5'
@@ -70,7 +67,7 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   # A library for generating fake data such as names, addresses, and phone numbers [https://github.com/faker-ruby/faker]
-  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'main'
+  gem 'faker', require: false
   # Required for RSpec specs
   gem 'rspec-rails'
   # Security tools
@@ -83,6 +80,8 @@ group :development, :test do
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
+  # Test coverage
+  gem 'simplecov', '~> 0.13.0', require: false
 end
 
 group :development do
@@ -101,6 +100,8 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  gem 'i18n-tasks', '~> 0.9.30'
 end
 
 group :test do

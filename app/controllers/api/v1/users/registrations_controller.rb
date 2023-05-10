@@ -5,22 +5,23 @@ module Api
     module Users
       class RegistrationsController < ApiController
         skip_before_action :doorkeeper_authorize!, only: %i[create]
-        before_action :validate_client
 
         include DoorkeeperRegisterable
 
+        # POST /oauth/token -> Login
         def create
           allowed_params = user_params.except(:client_id)
-          user = User.new(allowed_params)
+          @user = User.new(allowed_params)
 
-          if user.save
-            render json: render_user(user, @client_app), status: :ok
+          if @user.save
+            generate_access_token(@user, @client_app)
+            render :show
           else
-
-            render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+            render json: { errors: @user.errors.messages }, status: :unprocessable_entity
           end
         end
 
+        # POST /oauth/revoke -> Logout
         def edit
           user = current_user
 
@@ -40,16 +41,8 @@ module Api
 
         private
 
-        def validate_client
-          @client_app = Doorkeeper::Application.find_by(uid: params[:client_id])
-          return if @client_app
-
-          render json: { errors: [t('doorkeeper.errors.messages.invalid_client')] },
-                 status: :unauthorized
-        end
-
         def user_params
-          params.require(:registration).permit(:email, :password, :current_password, :client_id)
+          params.require(:registration).permit(:email, :username, :password, :current_password)
         end
       end
     end

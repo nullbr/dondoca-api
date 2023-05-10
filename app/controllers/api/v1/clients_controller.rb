@@ -40,10 +40,9 @@ module Api
       # PATCH/PUT /clients/1 or /clients/1.json
       def update
         if @client.update(client_params)
-          render json: @client, status: :ok
+          render json: @client
         else
-
-          render json: @client.errors, status: :unprocessable_entity
+          render_errors(@client.errors)
         end
       end
 

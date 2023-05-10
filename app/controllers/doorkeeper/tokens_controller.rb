@@ -7,10 +7,14 @@ module Doorkeeper
     def create
       headers.merge!(authorize_response.headers)
 
-      render json: authorize_response.body,
-             status: authorize_response.status
-    rescue Errors::DoorkeeperError => e
-      handle_token_exception(e)
+      if authorize_response.is_a?(Doorkeeper::OAuth::ErrorResponse)
+        render json: { errors: [authorize_response.body[:error_description]] }, status: :unauthorized
+      else
+        render json: authorize_response.body,
+               status: authorize_response.status
+      end
+      # rescue Errors::DoorkeeperError => e
+      #   handle_token_exception(e)
     end
 
     # OAuth 2.0 Token Revocation - https://datatracker.ietf.org/doc/html/rfc7009
@@ -18,14 +22,14 @@ module Doorkeeper
       # The authorization server responds with HTTP status code 200 if the client
       # submitted an invalid token or the token has been revoked successfully.
       if token.blank?
-        render json: {}, status: :ok
+        render json: {}
       # The authorization server validates [...] and whether the token
       # was issued to the client making the revocation request. If this
       # validation fails, the request is refused and the client is informed
       # of the error by the authorization server as described below.
       elsif authorized?
         revoke_token
-        render json: {}, status: :ok
+        render json: {}
       else
         render json: revocation_error_response, status: :forbidden
       end
@@ -35,7 +39,7 @@ module Doorkeeper
       introspection = OAuth::TokenIntrospection.new(server, token)
 
       if introspection.authorized?
-        render json: introspection.to_json, status: :ok
+        render json: introspection.to_json
       else
         error = introspection.error_response
         headers.merge!(error.headers)
@@ -153,7 +157,8 @@ module Doorkeeper
     def revocation_error_response
       error_description = I18n.t(:unauthorized, scope: %i[doorkeeper errors messages revoke])
 
-      { error: :unauthorized_client, error_description: }
+      # { error: :unauthorized_client, error_description: }
+      { errors: [error_description] }
     end
   end
 end

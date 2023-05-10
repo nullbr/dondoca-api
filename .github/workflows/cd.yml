@@ -1,0 +1,24 @@
+name: "CD"
+on:
+  push:
+    branches:
+      - "capistrano-deploy"
+
+jobs:
+  deploy:
+    env:
+      USERNAME: ${{secrets.USERNAME}}
+      SERVER_HOST: ${{secrets.SERVER_HOST}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - uses: miloserdow/capistrano-deploy@v3 # you can use miloserdow/capistrano-deploy@master for the cuurent stable dev version
+        with:
+          target: production # Defines the environment that will be used for the deployment
+          deploy_key: ${{ secrets.DEPLOY_ENC_KEY }} # Name of the variable configured in Settings/Secrets of your github project
+          enc_rsa_key_pth: config/deploy_id_ed25519_enc
