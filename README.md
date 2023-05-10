@@ -34,7 +34,6 @@ rails db:seed
 ```Bash
 bundle exec rubocop --parallel
 bin/rake
-Run bundle exec rails test
 ```
 
 ### Production deploy:
