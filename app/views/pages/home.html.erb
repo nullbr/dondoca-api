@@ -15,6 +15,10 @@
 
 <% unless Rails.env.production? %>
   <p>You can test the API with following credentials.</p>
-  <div class="container">
-    <%= @application.as_json %>
+  <div>
+    <% if @application %>
+      <%= @application.as_json %>
+    <% else %>
+      <p>Please seed the database</p>
+    <% end %>
 <% end %>
