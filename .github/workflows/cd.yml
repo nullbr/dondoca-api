@@ -3,12 +3,12 @@ on:
   push:
     branches:
       - "capistrano-deploy"
-  pull_request:
-    branches:
-      - "capistrano-deploy"
 
 jobs:
   deploy:
+    env:
+      USERNAME: ${{secrets.USERNAME}}
+      SERVER_HOST: ${{secrets.SERVER_HOST}}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
