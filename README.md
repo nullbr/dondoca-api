@@ -2,6 +2,9 @@
 
 [![Github Actions CI](https://github.com/nullbr/dondoca-api/actions/workflows/ci.yml/badge.svg?event=push)](https://github.com/nullbr/dondoca-api/actions)
 [![Github Actions CD](https://github.com/nullbr/dondoca-api/actions/workflows/cd.yml/badge.svg?event=push)](https://github.com/nullbr/dondoca-api/actions)
+[![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
+![Ruby Version](https://img.shields.io/badge/ruby_version-3.1.2-blue.svg)
+![Rails Version](https://img.shields.io/badge/rails_version-7.0.2-blue.svg)
 
 ### This is the backend for Dondoca Web
 

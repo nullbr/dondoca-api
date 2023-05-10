@@ -59,7 +59,8 @@ gem 'doorkeeper', '~> 5.5'
 
 gem 'rack-cors', '~> 1.1'
 
-gem 'rswag', '~> 2.5'
+gem 'rswag-api'
+gem 'rswag-ui'
 
 gem 'swagger-blocks', '~> 3.0'
 
@@ -70,6 +71,7 @@ group :development, :test do
   gem 'faker', require: false
   # Required for RSpec specs
   gem 'rspec-rails'
+  gem 'rswag-specs'
   # Security tools
   gem 'brakeman'
   gem 'bundler-audit'

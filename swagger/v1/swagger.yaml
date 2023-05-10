@@ -4,11 +4,11 @@ info:
   title: API V1
   version: v1
 paths:
-  "/api/v1/workers":
+  "/api/v1/clients":
     get:
-      summary: Get all workers
+      summary: Get all clients
       tags:
-      - Worker
+      - Client
       security:
       - Bearer: []
       parameters:
@@ -18,11 +18,117 @@ paths:
         description: Authorization token
         schema:
           type: string
+      - name: Client
+        in: header
+        required: true
+        description: Client id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: clients found
+        '401':
+          description: unauthorized
+    post:
+      summary: Create a client
+      tags:
+      - Client
+      security:
+      - Bearer: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: Authorization token
+        schema:
+          type: string
+      - name: Client
+        in: header
+        required: true
+        description: Client id
+        schema:
+          type: string
+      responses:
+        '201':
+          description: client created
+        '401':
+          description: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                client:
+                  title:
+                    type: string
+                  body:
+                    type: string
+              required:
+              - title
+              - body
+          application/xml:
+            schema:
+              type: object
+              properties:
+                client:
+                  title:
+                    type: string
+                  body:
+                    type: string
+              required:
+              - title
+              - body
+  "/api/v1/clients/{id}":
+    get:
+      summary: Get a client
+      tags:
+      - Client
+      security:
+      - Bearer: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: Authorization token
+        schema:
+          type: string
+      - name: Client
+        in: header
+        required: true
+        description: Client id
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: ID of the client
+        schema:
+          type: string
+      responses:
+        '200':
+          description: client found
+        '404':
+          description: client not found
+        '401':
+          description: unauthorized
+  "/api/v1/workers":
+    get:
+      summary: Get all workers
+      tags:
+      - Worker
+      parameters:
+      - name: Client
+        in: header
+        required: true
+        description: Client id
+        schema:
+          type: string
       responses:
         '200':
           description: workers found
         '401':
-          description: unauthorized
+          description: client invalid
     post:
       summary: Create a worker
       tags:
@@ -36,37 +142,63 @@ paths:
         description: Authorization token
         schema:
           type: string
+      - name: Client
+        in: header
+        required: true
+        description: Client id
+        schema:
+          type: string
       responses:
-        '302':
-          description: redirected
+        '201':
+          description: worker created
         '401':
           description: unauthorized
       requestBody:
         content:
           application/json:
             schema:
-              type: object
               properties:
                 worker:
-                  title:
+                  first_name:
                     type: string
-                  body:
+                  last_name:
                     type: string
+                  job:
+                    type: string
+                  instagram:
+                    type: string
+                  image_url:
+                    type: string
+                  description:
+                    type: string
+                  phone_number:
+                    type: bigint
+                  categories:
+                    type: array
               required:
-              - title
-              - body
+              - first_name
           application/xml:
             schema:
-              type: object
               properties:
                 worker:
-                  title:
+                  first_name:
                     type: string
-                  body:
+                  last_name:
                     type: string
+                  job:
+                    type: string
+                  instagram:
+                    type: string
+                  image_url:
+                    type: string
+                  description:
+                    type: string
+                  phone_number:
+                    type: bigint
+                  categories:
+                    type: array
               required:
-              - title
-              - body
+              - first_name
   "/api/v1/workers/{id}":
     get:
       summary: Get a worker
@@ -81,6 +213,12 @@ paths:
         description: Authorization token
         schema:
           type: string
+      - name: Client
+        in: header
+        required: true
+        description: Client id
+        schema:
+          type: string
       - name: id
         in: path
         required: true
@@ -93,7 +231,7 @@ paths:
         '404':
           description: worker not found
         '401':
-          description: unauthorized
+          description: client invalid
 servers:
 - url: https://{defaultHost}
   variables:
