@@ -10,8 +10,7 @@ module Api
 
         # POST /oauth/token -> Login
         def create
-          allowed_params = user_params.except(:client_id)
-          @user = User.new(allowed_params)
+          @user = User.new(user_params)
 
           if @user.save
             generate_access_token(@user, @client_app)
@@ -23,19 +22,15 @@ module Api
 
         # POST /oauth/revoke -> Logout
         def edit
-          user = current_user
-
-          allowed_params = user_params.except(:client_id)
-
           # check if email or password are present
           # use current password or email if none is present
-          allowed_params[:email] = user.email if allowed_params[:email].blank?
-          allowed_params[:password] = user.password if allowed_params[:password].blank?
+          user_params[:email] = current_user.email if user_params[:email].blank?
+          user_params[:password] = current_user.password if user_params[:password].blank?
 
-          if user.update_with_password(allowed_params)
-            render json: render_user(user, @client_app), state: :ok
+          if current_user.update_with_password(user_params)
+            render json: :show, status: :ok
           else
-            render json: { errors: [t('activerecord.errors.models.user.attributes.current_password.invalid')] }, status: :unprocessable_entity
+            render json: { errors: current_user.errors.full_messages }, status: :unprocessable_entity
           end
         end
 

@@ -1,12 +1,18 @@
 ---
 pt-BR:
   activerecord:
+    attributes:
+      user:
+        email: E-mail
+        password: Senha
+        current_password: Senha atual
+        role: Perfil
     errors:
       models:
         user:
           attributes:
             current_password:
-              invalid: inválido
+              invalid: inválida
             role:
               not_admin: não é administrador
   doorkeeper:
@@ -22,3 +28,5 @@ pt-BR:
       name: Cliente
     worker:
       name: Profissional
+    user:
+      name: Usuário
